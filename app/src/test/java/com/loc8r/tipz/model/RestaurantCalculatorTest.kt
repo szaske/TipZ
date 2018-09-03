@@ -1,16 +1,15 @@
 package com.loc8r.tipz.model
 
-import com.loc8r.tipz.model.RestaurantCalculator
 import junit.framework.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
 class RestaurantCalculatorTest {
-    lateinit var calculator: RestaurantCalculator
+    lateinit var calculator: Calculator
 
     @Before
     fun setup(){
-        calculator = RestaurantCalculator()
+        calculator = Calculator()
     }
 
     @Test

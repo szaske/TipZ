@@ -2,7 +2,7 @@ package com.loc8r.tipz.model
 
 import java.math.RoundingMode
 
-class RestaurantCalculator {
+class Calculator {
     fun calculateTip(checkAmount: Double, tipPctInput: Int): TipCalculation {
 
         // rounding code added
