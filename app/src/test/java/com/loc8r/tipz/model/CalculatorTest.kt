@@ -4,7 +4,7 @@ import junit.framework.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
-class RestaurantCalculatorTest {
+class CalculatorTest {
     lateinit var calculator: Calculator
 
     @Before
