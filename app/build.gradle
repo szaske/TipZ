@@ -19,6 +19,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    // Required to allow data binding in a view
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -27,6 +32,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$support_appcompat_v7"
     implementation "com.android.support.constraint:constraint-layout:$constraint_layout"
     implementation "com.android.support:design:$support_design"
+    // kapt "com.android.databinding:compiler:$android_plugin"
 
     //test
     testImplementation "junit:junit:$junit"

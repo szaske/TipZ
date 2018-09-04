@@ -1,25 +1,30 @@
 package com.loc8r.tipz.view
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
 import com.loc8r.tipz.R
+import com.loc8r.tipz.databinding.CalcActivityBinding
+import com.loc8r.tipz.viewmodel.CalculatorViewModel
 
-import kotlinx.android.synthetic.main.activity_main.*
+class CalculatorActivity : AppCompatActivity() {
 
-class MainActivity : AppCompatActivity() {
+    lateinit var binding: CalcActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
+        // This is the dataabinding replacement for the standard setContentView call
+        // it associates and instantiates the layout, creates the binding and returns it
+        binding = DataBindingUtil.setContentView(this, R.layout.calc_activity)
+
+        // And this binds the views to the viewmodel
+        binding.vm = CalculatorViewModel(application)
+
+        setSupportActionBar(binding.toolbar)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

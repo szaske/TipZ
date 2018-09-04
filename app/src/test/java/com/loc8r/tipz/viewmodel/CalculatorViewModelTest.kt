@@ -1,5 +1,7 @@
 package com.loc8r.tipz.viewmodel
 
+import android.app.Application
+import com.loc8r.tipz.R
 import com.loc8r.tipz.model.Calculator
 import com.loc8r.tipz.model.TipCalculation
 import junit.framework.Assert.assertEquals
@@ -18,18 +20,25 @@ class CalculatorViewModelTest {
     lateinit var calculatorViewModel: CalculatorViewModel
 
     // We need to create a mock calculator, so the test is only testing the viewmodel
-    @Mock
-    lateinit var mockCalculator: Calculator
+    @Mock lateinit var mockCalculator: Calculator
+    @Mock lateinit var mockApp: Application
 
     @Before
     fun setup(){
         // This initializes any mocks annotated with @Mock
         MockitoAnnotations.initMocks(this)
-        calculatorViewModel = CalculatorViewModel(mockCalculator)
+        stubApplicationResource(0.0,"$0.00")
+        calculatorViewModel = CalculatorViewModel(mockApp, mockCalculator)
     }
 
+    // A helper function to mock our fake Calc
     private fun stubTipCalc(tipCalculation: TipCalculation){
         `when`(mockCalculator.calculateTip(10.00,15)).thenReturn(tipCalculation)
+    }
+
+    // A helper function to mock our Application
+    private fun stubApplicationResource(input: Double, output: String){
+        `when`(mockApp.getString(R.string.dollar_amount, input)).thenReturn(output)
     }
 
     @Test
@@ -37,13 +46,21 @@ class CalculatorViewModelTest {
         calculatorViewModel.inputCheckAmount = "10.00"
         calculatorViewModel.inputTipPrecentage = "15"
 
-        // Create a mock response
+        // Create a mock response from the mock Calc
         val stubResponse = TipCalculation(10.00,15,1.5,11.5)
         stubTipCalc(stubResponse)
 
+        // Create a mock response from my mock App
+        stubApplicationResource(10.0,"$10.00")
+        stubApplicationResource(1.5,"$1.50")
+        stubApplicationResource(11.5,"$11.50")
+
         calculatorViewModel.calculateTip()
 
-        assertEquals(stubResponse, calculatorViewModel.tipCalculation)
+        // This previous version tests that the viewModel
+        assertEquals("$10.00", calculatorViewModel.outputCheckAmount)
+        assertEquals("$1.50", calculatorViewModel.outputTipAmount)
+        assertEquals("$11.50", calculatorViewModel.outputGrandTotalAmount)
     }
 
     @Test

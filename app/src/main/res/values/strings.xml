@@ -6,4 +6,7 @@
     <string name="bill_amount_label">Bill Amount</string>
     <string name="tip_amount_label">Tip</string>
     <string name="grand_total_label">Grand Total</string>
+
+    <!--This describes how I'd like dollar amounts formatted-->
+    <string name="dollar_amount">$%1$.02f</string>
 </resources>
