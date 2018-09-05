@@ -1,15 +1,16 @@
 package com.loc8r.tipz.viewmodel
 
 import android.app.Application
-import android.databinding.BaseObservable
-import android.util.Log
 import com.loc8r.tipz.R
 import com.loc8r.tipz.model.Calculator
 import com.loc8r.tipz.model.TipCalculation
 
 // I'm extending the BaseObservable class so I get the ability to notifyChange() below
-// I'm passing in an application so I have access to the dollar_amount string within the strings.xml file
-class CalculatorViewModel(val app: Application, val calculator: Calculator = Calculator()): BaseObservable() {
+// I'm passing in an application so I can pass it along to the super class.
+//
+class CalculatorViewModel @JvmOverloads constructor(
+        app: Application,
+        val calculator: Calculator = Calculator()): ObservableViewModel(app) {
      /**  When creating a viewmodel
      step one is to create variables for each item in the view.
      These are strings not numbers, since the view deals with strings
@@ -35,6 +36,7 @@ class CalculatorViewModel(val app: Application, val calculator: Calculator = Cal
     }
 
     private fun updateOutputs(tc: TipCalculation) {
+        val app = getApplication<Application>()
         outputCheckAmount = app.getString(R.string.dollar_amount, tc.checkAmount)
         outputTipAmount = app.getString(R.string.dollar_amount, tc.tipAmount)
         outputGrandTotalAmount = app.getString(R.string.dollar_amount, tc.grandTotal)
@@ -53,14 +55,7 @@ class CalculatorViewModel(val app: Application, val calculator: Calculator = Cal
         if(checkAmount != null && tipPct != null){
             // Log.d("TipZ", "check Amt: $checkAmount Tip%: $tipPct")
             updateOutputs(calculator.calculateTip(checkAmount,tipPct))
-            clearInput()
+            notifyChange()
         }
-
-    }
-
-    private fun clearInput() {
-        inputCheckAmount = "0.00"
-        inputTipPrecentage = "0"
-        notifyChange()
     }
 }

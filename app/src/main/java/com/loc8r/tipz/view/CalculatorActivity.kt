@@ -1,5 +1,6 @@
 package com.loc8r.tipz.view
 
+import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity;
@@ -20,8 +21,10 @@ class CalculatorActivity : AppCompatActivity() {
         // it associates and instantiates the layout, creates the binding and returns it
         binding = DataBindingUtil.setContentView(this, R.layout.calc_activity)
 
-        // And this binds the views to the viewmodel
-        binding.vm = CalculatorViewModel(application)
+        // And this creates a new viewmodel when it's launched
+        // and then returns that same viewmodel between screen rotations
+        binding.vm = ViewModelProviders.of(this)
+                .get(CalculatorViewModel::class.java)
 
         setSupportActionBar(binding.toolbar)
 

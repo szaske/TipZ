@@ -32,7 +32,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$support_appcompat_v7"
     implementation "com.android.support.constraint:constraint-layout:$constraint_layout"
     implementation "com.android.support:design:$support_design"
-    // kapt "com.android.databinding:compiler:$android_plugin"
+    implementation "android.arch.lifecycle:extensions:$jetpack"
 
     //test
     testImplementation "junit:junit:$junit"
