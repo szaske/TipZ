@@ -3,14 +3,19 @@ package com.loc8r.tipz.view
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.loc8r.tipz.R
 import com.loc8r.tipz.databinding.CalcActivityBinding
 import com.loc8r.tipz.viewmodel.CalculatorViewModel
 
-class CalculatorActivity : AppCompatActivity() {
+class CalculatorActivity : AppCompatActivity(), SaveDialogFragment.Callback {
+    override fun onSaveTip(name: String) {
+        Snackbar.make(binding.root, "Saved $name", Snackbar.LENGTH_SHORT).show()
+    }
 
     lateinit var binding: CalcActivityBinding
 
@@ -32,7 +37,7 @@ class CalculatorActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
+        menuInflater.inflate(R.menu.menu_tip_calculator, menu)
         return true
     }
 
@@ -41,8 +46,17 @@ class CalculatorActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_save -> {
+                showSaveDialog()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showSaveDialog() {
+        val saveFragment = SaveDialogFragment()
+        Log.d("Zaske", "")
+        saveFragment.show(supportFragmentManager, "SaveDialog")
     }
 }

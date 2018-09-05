@@ -9,4 +9,9 @@
 
     <!--This describes how I'd like dollar amounts formatted-->
     <string name="dollar_amount">$%1$.02f</string>
+
+    <!--For Save Dialog Fragment-->
+    <string name="save_hint">Enter Location</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
 </resources>
