@@ -47,7 +47,7 @@ class CalculatorViewModelTest {
         calculatorViewModel.inputTipPrecentage = "15"
 
         // Create a mock response from the mock Calc
-        val stubResponse = TipCalculation(10.00,15,1.5,11.5)
+        val stubResponse = TipCalculation(checkAmount = 10.00,tipAmount = 1.5, grandTotal = 11.5)
         stubTipCalc(stubResponse)
 
         // Create a mock response from my mock App

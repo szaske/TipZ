@@ -1,8 +1,9 @@
 package com.loc8r.tipz.model
 
+import android.arch.lifecycle.LiveData
 import java.math.RoundingMode
 
-class Calculator {
+class Calculator constructor(val repository: TipCalculationRepository = TipCalculationRepository()) {
     fun calculateTip(checkAmount: Double, tipPctInput: Int): TipCalculation {
 
         // rounding code added
@@ -15,9 +16,21 @@ class Calculator {
         val grandTotal = checkAmount + tipAmount
 
         return TipCalculation(
-                checkAmount,
-                tipPctInput,
-                tipAmount,
-                grandTotal)
+                checkAmount = checkAmount,
+                tipPct = tipPctInput,
+                tipAmount =  tipAmount,
+                grandTotal =  grandTotal)
+    }
+
+    fun saveTipCalculation(tc: TipCalculation){
+        repository.saveTipCalculation(tc)
+    }
+
+    fun loadTipCalculationByLocationName(locationName: String): TipCalculation? {
+        return repository.loadTipCalculationByName(locationName)
+    }
+
+    fun loadAllTipCalculations(): LiveData<List<TipCalculation>>{
+        return repository.loadAllTipCalculations()
     }
 }

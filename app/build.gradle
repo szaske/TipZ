@@ -37,6 +37,7 @@ dependencies {
     //test
     testImplementation "junit:junit:$junit"
     testImplementation "org.mockito:mockito-core:$mockito"
+    testImplementation "android.arch.core:core-testing:$jetpack" // Added to give me access to the MainLooper while unit testing
     androidTestImplementation "com.android.support.test:runner:$test_runner"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso"
 }

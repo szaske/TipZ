@@ -8,6 +8,7 @@ package com.loc8r.tipz.model
  * toString functions as well as componentN functions
  */
 data class TipCalculation(
+        val locationName: String = "",
         val checkAmount: Double = 0.0,
         val tipPct: Int = 0,
         val tipAmount: Double = 0.0,
